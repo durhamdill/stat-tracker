@@ -24,6 +24,12 @@ router.post('/activities', function(req, res){
   })
 })
 
+router.get('/activities/:id', function(req, res){
+  Activity.find({_id: req.params.id}).then(function (activity) {
+    res.json(activity);
+  })
+})
+
 
 
 module.exports = router;
