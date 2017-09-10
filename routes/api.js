@@ -20,7 +20,7 @@ router.get('/activities', function(req, res){
 router.post('/activities', function(req, res){
   var new_activity = new Activity(req.body);
   new_activity.save(function (activity) {
-    res.json(activity);
+    res.json({activity: activity});
   })
 })
 
@@ -30,6 +30,16 @@ router.get('/activities/:id', function(req, res){
   })
 })
 
+router.put('/activities/:id', function(req, res){
+  Activity.findOneAndUpdate({_id: req.params.id}, req.body).then(function (activity) {
+    res.json(activity);
+  })
+})
 
+router.delete('/activities/:id', function(req, res){
+  Activity.remove({_id: req.params.id}).then(function (activity) {
+    res.json({message: 'Task successfully deleted'});
+  })
+})
 
 module.exports = router;
